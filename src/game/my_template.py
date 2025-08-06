@@ -11,7 +11,7 @@ import arcade
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
-WINDOW_TITLE = "Starting Template"
+WINDOW_TITLE = "Messed Up Farm"
 
 
 class GameView(arcade.View):
@@ -26,10 +26,14 @@ class GameView(arcade.View):
     def __init__(self):
         super().__init__()
 
-        self.background_color = arcade.color.AMAZON
+        self.background_color = arcade.color.AIR_FORCE_BLUE
+        arcade.set_background_color(self.background_color)
 
         # If you have sprite lists, you should create them here,
         # and set them to None
+
+        self.tiles = arcade.SpriteList()
+        self.characters = arcade.SpriteList()
 
     def reset(self):
         """Reset the game to the initial state."""
@@ -46,6 +50,9 @@ class GameView(arcade.View):
         self.clear()
 
         # Call draw() on all your sprite lists below
+        self.tiles.draw()
+        self.characters.draw()
+
 
     def on_update(self, delta_time):
         """
@@ -96,6 +103,9 @@ def main():
 
     # Create and setup the GameView
     game = GameView()
+
+    cow = arcade.Sprite("resources/sprites/cow.png", 2, 0, 0)
+    game.characters.append(cow)
 
     # Show GameView on screen
     window.show_view(game)

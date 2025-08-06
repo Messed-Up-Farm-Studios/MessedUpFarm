@@ -209,3 +209,5 @@ __marimo__/
 # Resources directory (excluding markdown files)
 resources/*
 !resources/*.md
+
+# ^this is good because it uh makes sure that the

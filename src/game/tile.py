@@ -32,7 +32,7 @@ class Tile:
         if Player not in self.playersVisited:
             self.playersVisited.append(player)
 
-    def linkTile(self, direction: Direction, tileToConnect: Tile):
+    def linkTile(self, direction: Direction, tileToConnect: str):
         if direction == Direction.N:
             self.n = tileToConnect
         elif direction == Direction.E:
