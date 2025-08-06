@@ -104,8 +104,16 @@ def main():
     # Create and setup the GameView
     game = GameView()
 
-    cow = arcade.Sprite("resources/sprites/cow.png", 2, 0, 0)
+    cow = arcade.Sprite("resources/sprites/cow.png", .0625)
+    cow.center_x = 30
+    cow.center_y = 30
     game.characters.append(cow)
+
+    first_tile = arcade.Sprite("resources/sprites/dirt.png", .06250)
+
+    first_tile.center_x = 50
+    first_tile.center_y = 50
+    game.tiles.append(first_tile)
 
     # Show GameView on screen
     window.show_view(game)
