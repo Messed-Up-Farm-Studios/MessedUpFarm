@@ -1,0 +1,41 @@
+name: Build & Deploy MessedUpFarm
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+
+    steps:
+      # 1️⃣ Checkout code
+      - uses: actions/checkout@v3
+
+      # 2️⃣ Setup Python
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      # 3️⃣ Install dependencies
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      # 4️⃣ Build EXE
+      - run: |
+          pyinstaller --onefile main.py --add-data "resources:resources" --name MessedUpFarm --icon="resources/app.ico" --windowed
+
+      # 5️⃣ Copy EXE to downloads folder for GitHub Pages
+      - run: |
+          mkdir -p downloads
+          copy dist\MessedUpFarm.exe downloads\MessedUpFarm.exe
+
+      # 6️⃣ Deploy to GitHub Pages
+      - name: Deploy Landing Page
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./  # root folder containing index.html, downloads/, resources/
