@@ -8,6 +8,7 @@ If Python and Arcade are installed, this example can be run from the command lin
 python -m arcade.examples.starting_template
 """
 import arcade
+from frontend.media_utils import resource_path
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -96,32 +97,32 @@ class GameView(arcade.View):
         pass
 
 
-def main():
-    """ Main function """
-    # Create a window class. This is what actually shows up on screen
-    window = arcade.Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE)
 
-    # Create and setup the GameView
-    game = GameView()
+class MessedUpFarmApp():
+    def __init__(self):
+        pass
 
-    cow = arcade.Sprite("resources/sprites/cow.png", .0625)
-    cow.center_x = 30
-    cow.center_y = 30
-    game.characters.append(cow)
+    def run(self):
+        """ Main function """
+        # Create a window class. This is what actually shows up on screen
+        window = arcade.Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE)
 
-    first_tile = arcade.Sprite("resources/sprites/dirt.png", .06250)
+        # Create and setup the GameView
+        game = GameView()
 
-    first_tile.center_x = 50
-    first_tile.center_y = 50
-    game.tiles.append(first_tile)
+        cow = arcade.Sprite(resource_path("resources/sprites/cow.png"), .0625)
+        cow.center_x = 30
+        cow.center_y = 30
+        game.characters.append(cow)
 
-    # Show GameView on screen
-    window.show_view(game)
+        first_tile = arcade.Sprite(resource_path("resources/biomes/dirt.png"), .06250)
 
-    # Start the arcade game loop
-    arcade.run()
+        first_tile.center_x = 50
+        first_tile.center_y = 50
+        game.tiles.append(first_tile)
 
+        # Show GameView on screen
+        window.show_view(game)
 
-
-if __name__ == "__main__":
-    main()
+        # Start the arcade game loop
+        arcade.run()
