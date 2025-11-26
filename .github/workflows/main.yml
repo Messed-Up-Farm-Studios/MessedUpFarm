@@ -1,4 +1,4 @@
-name: Build MessedUpFarm EXE
+name: Build & Release MessedUpFarm
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-exe:
+  build-and-release:
     runs-on: windows-latest
 
     steps:
@@ -22,8 +22,24 @@ jobs:
           pip install pyinstaller
 
       - run: |
-          pyinstaller --onefile main.py --add-data "resources:resources" --name=MessedUpFarm --icon="resources/app.ico" --windowed
+          pyinstaller --onefile main.py --add-data "resources:resources" --name MessedUpFarm --icon="resources/app.ico" --windowed
 
-      - run: |
-          mkdir downloads
-          copy dist\MessedUpFarm.exe downloads\MessedUpFarm.exe
+      # Create a GitHub Release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: v1.0.${{ github.run_number }}  # auto-version by workflow run
+          release_name: MessedUpFarm v1.0.${{ github.run_number }}
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Upload the EXE as a release asset
+      - name: Upload EXE
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist\MessedUpFarm.exe
+          asset_name: MessedUpFarm.exe
+          asset_content_type: application/octet-stream
