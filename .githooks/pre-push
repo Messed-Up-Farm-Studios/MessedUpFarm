@@ -1,2 +1,2 @@
 #!/bin/sh
-python .githooks/pre_push.py
+python .githooks/pre-push.py
