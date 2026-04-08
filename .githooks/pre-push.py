@@ -29,7 +29,7 @@ def handle_pre_push_result(audio_path, exit_code):
 def pre_push_steps():
     # Run Tests
     # Check Build
-    return True
+    return [True, False][random.randint(0,1)]
 
 if pre_push_steps():
     # pre-push passed
