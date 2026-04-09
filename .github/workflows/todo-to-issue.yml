@@ -1,5 +1,7 @@
 name: "Run TODO to Issue"
-on: [ "push" ]
+
+on: ["push"]
+
 jobs:
   build:
     runs-on: "ubuntu-latest"
@@ -7,16 +9,21 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+
     steps:
-      - uses: "actions/checkout@v6"
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
       - name: "TODO to Issue"
-        uses: "alstr/todo-to-issue-action@v5"
+        uses: alstr/todo-to-issue-action@f303233306915309623e16447c2937be1e6b36ec # v5.0.0
         with:
           INSERT_ISSUE_URLS: "true"
+
       - name: Set Git user
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Commit and Push Changes
         run: |
           git add -A
