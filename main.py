@@ -1,8 +1,4 @@
-import os
-import sys
-import traceback
-
-from frontend.MessedUpFarmApp import MessedUpFarmApp
+from client.src.MessedUpFarmApp import MessedUpFarmApp
 
 def main():
     app = MessedUpFarmApp()

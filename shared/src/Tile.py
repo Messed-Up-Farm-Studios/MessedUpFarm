@@ -1,21 +1,6 @@
-from enum import Enum
-
-class Player(Enum):
-    COW = "Cow"
-    PIG = "Pig"
-
-class Biome(Enum):
-    S = "Swamp"
-    O = "Orchard"
-    G = "Garden"
-    D = "Dirt"
-    T = "Trees"
-
-class Direction(Enum):
-    N = "North"
-    E = "East"
-    S = "South"
-    W = "West"
+from shared.src.Direction import Direction
+from shared.src.Player import Player
+from shared.src.Biome import Biome
 
 class Tile:
     def __init__(self, biome: Biome, col: int, row: int):
