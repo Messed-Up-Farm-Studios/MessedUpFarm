@@ -2,7 +2,6 @@ import arcade
 
 from frontend.game.GameView import GameView
 from frontend.media_utils import resource_path
-from frontend.SplashScreen import Splashscreen
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -11,8 +10,6 @@ WINDOW_TITLE = "Messed Up Farm"
 
 class MessedUpFarmApp:
     def __init__(self):
-        splashScreen = Splashscreen()
-
         pass
 
     def run(self):
