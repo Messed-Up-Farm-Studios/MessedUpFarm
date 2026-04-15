@@ -1,8 +1,10 @@
 from enum import Enum
 
+
 class Player(Enum):
     COW = "Cow"
     PIG = "Pig"
+
 
 class Biome(Enum):
     S = "Swamp"
@@ -11,11 +13,13 @@ class Biome(Enum):
     D = "Dirt"
     T = "Trees"
 
+
 class Direction(Enum):
     N = "North"
     E = "East"
     S = "South"
     W = "West"
+
 
 class Tile:
     def __init__(self, biome: Biome, col: int, row: int):

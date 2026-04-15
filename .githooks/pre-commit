@@ -1,0 +1,38 @@
+#!/bin/sh
+
+RUFF_SOUND="$(git rev-parse --show-toplevel)/sounds/ruff.wav"
+
+play_sound() {
+    OS="$(uname -s)"
+
+    case "$OS -s" in 
+        Darwin)
+        afplay $RUFF_SOUND
+        ;;
+        Linux)
+        aplay $RUFF_SOUND
+        ;;
+        MINGW*|MSYS*|CYGWIN*)
+        powershell -c "(New-Object Media.SoundPlayer '$RUFF_SOUND').PlaySync();"
+        ;;
+        *)
+        echo "No sound support for OS: $OS"
+        ;;
+    esac
+
+}
+
+echo "Running Ruff ...\n"
+play_sound
+
+# Linter
+ruff check . --fix
+# Format
+ruff format . 
+
+if ! git diff --quiet; then
+    echo "⚠️ Ruff modified files"
+    echo "Please re-stage changes"
+
+    exit 1
+fi

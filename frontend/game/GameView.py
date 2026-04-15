@@ -7,7 +7,9 @@ template.
 If Python and Arcade are installed, this example can be run from the command line with:
 python -m arcade.examples.starting_template
 """
+
 import arcade
+
 
 class GameView(arcade.View):
     """
@@ -47,7 +49,6 @@ class GameView(arcade.View):
         # Call draw() on all your sprite lists below
         self.tiles.draw()
         self.characters.draw()
-
 
     def on_update(self, delta_time):
         """
@@ -89,5 +90,3 @@ class GameView(arcade.View):
         Called when a user releases a mouse button.
         """
         pass
-
-

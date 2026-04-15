@@ -1,9 +1,8 @@
-import time
-import threading
 import tkinter as tk
 from tkinter import PhotoImage
 
 from frontend.media_utils import resource_path
+
 
 class Splashscreen:
     def __init__(self, duration=1500):
@@ -20,14 +19,14 @@ class Splashscreen:
 
         self.splash_root = tk.Tk()
         self.splash_root.overrideredirect(True)
-        self.splash_root.configure(bg='white')
+        self.splash_root.configure(bg="white")
 
         width, height = 400, 300
         _center_window(self.splash_root, width, height)
 
         # Load image
         self.splash_image = PhotoImage(file=resource_path("resources/app.png"))
-        label = tk.Label(self.splash_root, image=self.splash_image, bg='white')
+        label = tk.Label(self.splash_root, image=self.splash_image, bg="white")
         label.pack(expand=True)
 
         # Close after duration
@@ -37,6 +36,3 @@ class Splashscreen:
 
     def close_splash(self):
         self.splash_root.destroy()
-
-
-    
