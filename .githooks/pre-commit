@@ -7,15 +7,20 @@ echo "Running Ruff ..."
 
 play_sound "$RUFF_SOUND"
 
-# Linter
-ruff check . --fix
+BEFORE=$(git diff --name-only)
 
-# Format
+# Linter and Format
+cd "$REPO_ROOT"
+ruff check . --fix
 ruff format . 
 
-if ! git diff --quiet; then
+AFTER=$(git diff --name-only)
+
+if [ "$BEFORE" != "$AFTER" ]; then
     echo "⚠️ Ruff modified files"
     echo "Please re-stage changes and commit again"
-
+    play_sound "$(pick_random_no_sound)"
     exit 1
 fi
+
+play_sound "$REPO_ROOT/.githooks/sounds/success/charm.wav"

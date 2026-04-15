@@ -9,7 +9,7 @@ play_sound() {
 
     case "$OS" in 
         Darwin)
-        afplay "$SOUND"
+        afplay "$SOUND" 
         ;;
         Linux)
         aplay "$SOUND"
@@ -31,8 +31,15 @@ pick_random_success_sound() {
 }
 
 pick_random_failure_sound() {
-    rand=$((RANDOM % 3 + 1))
+    rand=$((RANDOM % 2 + 1))
     fail_sound="fail$rand.wav"
+    fail_path="$REPO_ROOT/.githooks/sounds/fail/$fail_sound"
+    echo "$fail_path"
+}
+
+pick_random_no_sound() {
+    rand=$((RANDOM % 2 + 1))
+    fail_sound="no$rand.wav"
     fail_path="$REPO_ROOT/.githooks/sounds/fail/$fail_sound"
     echo "$fail_path"
 }
