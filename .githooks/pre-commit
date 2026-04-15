@@ -1,38 +1,21 @@
 #!/bin/sh
 
-RUFF_SOUND="$(git rev-parse --show-toplevel)/.githooks/sounds/ruff.wav"
+HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$HOOK_DIR/lib.sh"
 
-play_sound() {
-    OS="$(uname -s)"
+echo "Running Ruff ..."
 
-    case "$OS -s" in 
-        Darwin)
-        afplay $RUFF_SOUND
-        ;;
-        Linux)
-        aplay $RUFF_SOUND
-        ;;
-        MINGW*|MSYS*|CYGWIN*)
-        powershell -c "(New-Object Media.SoundPlayer '$RUFF_SOUND').PlaySync();"
-        ;;
-        *)
-        echo "No sound support for OS: $OS"
-        ;;
-    esac
-
-}
-
-echo "Running Ruff ...\n"
-play_sound
+play_sound "$RUFF_SOUND"
 
 # Linter
 ruff check . --fix
+
 # Format
 ruff format . 
 
 if ! git diff --quiet; then
     echo "⚠️ Ruff modified files"
-    echo "Please re-stage changes"
+    echo "Please re-stage changes and commit again"
 
     exit 1
 fi
