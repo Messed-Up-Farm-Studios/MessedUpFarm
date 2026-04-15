@@ -1,6 +1,6 @@
 #!/bin/sh
 
-RUFF_SOUND="$(git rev-parse --show-toplevel)/sounds/ruff.wav"
+RUFF_SOUND="$(git rev-parse --show-toplevel)/.githooks/sounds/ruff.wav"
 
 play_sound() {
     OS="$(uname -s)"
