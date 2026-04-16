@@ -4,17 +4,15 @@
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$HOOK_DIR/lib.sh"
 
-python .githooks/pre-push.py
-
 echo "Running Ruff ..."
-play_sound "$RUFF_SOUND"
+enqueue_sound  "$RUFF_SOUND"
 
 # Linter
 ruff check .
 
 if [ $? -ne 0 ]; then
     echo "Push blocked: Ruff lint errors detected"
-    play_sound "$(pick_random_failure_sound)"
+    enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
 fi
 
@@ -23,8 +21,8 @@ ruff format .
 
 if [ $? -ne 0 ]; then
     echo "Push blocked: formatting issues detected"
-    play_sound "$(pick_random_failure_sound)"
+    enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
 fi
 
-play_sound "$(pick_random_success_sound)"
+enqueue_sound  "$(pick_random_success_sound)"

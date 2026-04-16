@@ -5,7 +5,7 @@ HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "Running Ruff ..."
 
-play_sound "$RUFF_SOUND"
+enqueue_sound  "$RUFF_SOUND"
 
 BEFORE=$(git diff --name-only)
 
@@ -19,8 +19,8 @@ AFTER=$(git diff --name-only)
 if [ "$BEFORE" != "$AFTER" ]; then
     echo "⚠️ Ruff modified files"
     echo "Please re-stage changes and commit again"
-    play_sound "$(pick_random_no_sound)"
+    enqueue_sound  "$(pick_random_no_sound)"
     exit 1
 fi
 
-play_sound "$REPO_ROOT/.githooks/sounds/success/charm.wav"
+enqueue_sound  "$REPO_ROOT/.githooks/sounds/success/charm.wav"
