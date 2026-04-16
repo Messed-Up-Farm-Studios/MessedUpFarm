@@ -1,5 +1,5 @@
 [tool.ruff]
-line-length = 100
+line-length = 88
 target-version = "py311"
 exclude = [
     ".git",
@@ -17,11 +17,8 @@ select = ["E", "F", "I", "B", "UP", "SIM"]
 # B = bug-risk patterns
 # UP = modern Python syntax upgrades
 # SIM = simplification/refactoring suggestions
+ignore = ["E501"] # Line too long
 
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-line-ending = "auto"
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"] # Allow assert in tests
@@ -29,3 +26,10 @@ line-ending = "auto"
 [tool.ruff.lint.isort]
 combine-as-imports = true
 known-first-party = ["server", "shared", "client"]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+exclude = '''
+/(venv|\.venv|\.git|__pycache__|build|dist)/
+'''
