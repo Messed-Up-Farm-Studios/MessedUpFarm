@@ -8,6 +8,6 @@ class PlayerDAO:
     def add_player(self, player):
         players.append(player.name)
         return
-    
+
     def list_players(self):
         return players

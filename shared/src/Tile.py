@@ -1,6 +1,7 @@
+from shared.src.Biome import Biome
 from shared.src.Direction import Direction
 from shared.src.Player import Player
-from shared.src.Biome import Biome
+
 
 class Tile:
     def __init__(self, biome: Biome, col: int, row: int):

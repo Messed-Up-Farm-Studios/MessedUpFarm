@@ -10,6 +10,6 @@ class PlayerHandler:
         self.playerDAO.add_player(player)
         response = {"msg": "player created"}
         return response
-    
+
     def list_players():
         pass

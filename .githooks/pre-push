@@ -1,2 +1,28 @@
 #!/bin/sh
-python .githooks/pre-push.py
+
+# Load in files
+HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$HOOK_DIR/lib.sh"
+
+echo "Running Ruff ..."
+enqueue_sound  "$RUFF_SOUND"
+
+# Linter
+ruff check .
+
+if [ $? -ne 0 ]; then
+    echo "Push blocked: Ruff lint errors detected"
+    enqueue_sound  "$(pick_random_failure_sound)"
+    exit 1
+fi
+
+# Format
+ruff format . 
+
+if [ $? -ne 0 ]; then
+    echo "Push blocked: formatting issues detected"
+    enqueue_sound  "$(pick_random_failure_sound)"
+    exit 1
+fi
+
+enqueue_sound  "$(pick_random_success_sound)"
