@@ -22,9 +22,6 @@ fi
 black .
 
 if [ ! git diff --quiet ]; then
-ruff format . 
-
-if [ $? -ne 0 ]; then
     echo "Push blocked: formatting issues detected"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
