@@ -5,3 +5,4 @@ requests
 ruff
 black
 mypy
+websockets
