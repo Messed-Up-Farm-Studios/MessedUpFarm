@@ -1,4 +1,4 @@
-name: Lint
+name: Code Quality
 
 on:
   push:
@@ -26,6 +26,9 @@ jobs:
       - name: Lint
         run: ruff check .
 
+      - name: Install Black
+        run: pip install black
+
       - name: Format
-        run: ruff format . --check
+        run: black --check .
     
