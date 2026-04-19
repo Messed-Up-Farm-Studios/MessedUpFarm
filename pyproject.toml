@@ -17,6 +17,7 @@ select = ["E", "F", "I", "B", "UP", "SIM"]
 # B = bug-risk patterns
 # UP = modern Python syntax upgrades
 # SIM = simplification/refactoring suggestions
+# TODO add S and ~W to our pyproject.toml
 
 [tool.ruff.format]
 quote-style = "double"
