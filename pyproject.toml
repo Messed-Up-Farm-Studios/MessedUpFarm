@@ -18,6 +18,7 @@ select = ["E", "F", "I", "B", "UP", "SIM"]
 # UP = modern Python syntax upgrades
 # SIM = simplification/refactoring suggestions
 # TODO add S and ~W to our pyproject.toml
+# Issue URL: https://github.com/Messed-Up-Farm-Studios/MessedUpFarm/issues/22
 
 [tool.ruff.format]
 quote-style = "double"
