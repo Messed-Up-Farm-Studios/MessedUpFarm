@@ -43,7 +43,7 @@ black_status=$?
 
 
 if [ $black_status -ne 0 ]; then
-    echo "Commit blocked: Black formatted to format the code"
+    echo "Commit blocked: Black failed while formatting the code"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
 fi
