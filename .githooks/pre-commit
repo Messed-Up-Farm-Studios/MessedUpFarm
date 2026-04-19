@@ -12,6 +12,7 @@ BEFORE=$(git diff --name-only)
 # Linter and Format
 cd "$REPO_ROOT"
 ruff check . --fix
+
 black .
 
 AFTER=$(git diff --name-only)
