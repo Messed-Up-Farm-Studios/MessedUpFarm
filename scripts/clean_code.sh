@@ -1,8 +1,9 @@
 #!/bin/bash
+set -euo pipefail
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 
-cd $REPO_ROOT
+cd "$REPO_ROOT"
 
 mypy .
 
