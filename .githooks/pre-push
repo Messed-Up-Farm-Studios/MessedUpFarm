@@ -22,7 +22,7 @@ if [ $ruff_status -ne 0 ]; then
 fi
 
 # Format
-black check .
+black --check .
 
 black_status=$?
 
