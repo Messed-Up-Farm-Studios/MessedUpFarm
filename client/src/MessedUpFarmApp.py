@@ -1,7 +1,6 @@
 import arcade
 
-from frontend.game.GameView import GameView
-from frontend.media_utils import resource_path
+from client.src.GameView import GameView
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -20,12 +19,12 @@ class MessedUpFarmApp:
         # Create and setup the GameView
         game = GameView()
 
-        cow = arcade.Sprite(resource_path("resources/sprites/cow.png"), 0.0625)
+        cow = arcade.Sprite("client/src/assets/sprites/cow.png", 0.0625)
         cow.center_x = 30
         cow.center_y = 30
         game.characters.append(cow)
 
-        first_tile = arcade.Sprite(resource_path("resources/biomes/dirt.png"), 0.06250)
+        first_tile = arcade.Sprite("client/src/assets/biomes/dirt.png", 0.06250)
 
         first_tile.center_x = 50
         first_tile.center_y = 50

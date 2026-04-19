@@ -8,19 +8,31 @@ echo "Running Ruff ..."
 enqueue_sound  "$RUFF_SOUND"
 
 cd "$REPO_ROOT"
+
 # Linter
+
 ruff check .
 
-if [ $? -ne 0 ]; then
+ruff_status = $?
+
+if [ $ruff_status -ne 0 ]; then
     echo "Push blocked: Ruff lint errors detected"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
 fi
 
 # Format
-black .
+black check .
 
-if ! git diff --quiet ; then
+black_status=$?
+
+if [ $black_status -ne 0 ]; then
+    echo "Push blocked: Black failed to format the code"
+    enqueue_sound  "$(pick_random_failure_sound)"
+    exit 1
+fi
+
+if ! git diff --quiet; then
     echo "Push blocked: formatting issues detected"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1

@@ -1,26 +1,8 @@
 from __future__ import annotations
 
-from enum import Enum
-
-
-class Player(Enum):
-    COW = "Cow"
-    PIG = "Pig"
-
-
-class Biome(Enum):
-    S = "Swamp"
-    O = "Orchard"  # noqa: E741
-    G = "Garden"
-    D = "Dirt"
-    T = "Trees"
-
-
-class Direction(Enum):
-    N = "North"
-    E = "East"
-    S = "South"
-    W = "West"
+from shared.src.Biome import Biome
+from shared.src.Direction import Direction
+from shared.src.Player import Player
 
 
 class Tile:

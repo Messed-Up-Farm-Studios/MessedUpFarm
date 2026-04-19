@@ -34,9 +34,6 @@ start_sound_worker() {
     echo $! > "$PID_FILE"
 }
 
-start_sound_worker
-
-
 play_sound() {
     SOUND="$1"
 
@@ -82,3 +79,5 @@ pick_random_no_sound() {
 enqueue_sound() {
     echo "$1" > "$SOUND_QUEUE"
 }
+
+start_sound_worker

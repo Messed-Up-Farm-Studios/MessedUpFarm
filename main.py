@@ -1,4 +1,4 @@
-from frontend.MessedUpFarmApp import MessedUpFarmApp
+from client.src.MessedUpFarmApp import MessedUpFarmApp
 
 
 def main():
