@@ -27,6 +27,8 @@ fi
 
 ruff check . --fix
 
+ruff_status=$?
+
 if [ $ruff_status -ne 0 ]; then
     echo "Committ blocked: Ruff linted ... Please re-stage changes and commit again"
     enqueue_sound  "$(pick_random_failure_sound)"
@@ -36,6 +38,9 @@ fi
 # Format
 
 black .
+
+black_status=$?
+
 
 if [ $black_status -ne 0 ]; then
     echo "Commit blocked: Black formatted to format the code"
