@@ -9,17 +9,51 @@ enqueue_sound  "$RUFF_SOUND"
 
 BEFORE=$(git diff --name-only)
 
-# Linter and Format
 cd "$REPO_ROOT"
+
+# Type
+
+mypy .
+
+mypy_status=$?
+
+if [ $mypy_status -ne 0 ]; then
+    echo "Commit blocked: Type Errors to fix"
+    enqueue_sound  "$(pick_random_no_sound)"
+    exit 1
+fi
+
+# Linter
+
 ruff check . --fix
 
+ruff_status=$?
+
+if [ $ruff_status -ne 0 ]; then
+    echo "Commit blocked: Ruff linted ... Please re-stage changes and commit again"
+    enqueue_sound  "$(pick_random_failure_sound)"
+    exit 1
+fi
+
+# Format
+
 black .
+
+black_status=$?
+
+
+if [ $black_status -ne 0 ]; then
+    echo "Commit blocked: Black failed while formatting the code"
+    enqueue_sound  "$(pick_random_failure_sound)"
+    exit 1
+fi
+
+# Double Check
 
 AFTER=$(git diff --name-only)
 
 if [ "$BEFORE" != "$AFTER" ]; then
-    echo "⚠️ Ruff modified files"
-    echo "Please re-stage changes and commit again"
+    echo "Commit blocked: Please fix any errors, re-stage changes and commit again"
     enqueue_sound  "$(pick_random_no_sound)"
     exit 1
 fi

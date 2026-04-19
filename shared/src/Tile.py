@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from shared.src.Biome import Biome
 from shared.src.Direction import Direction
 from shared.src.Player import Player
@@ -18,7 +20,7 @@ class Tile:
         if Player not in self.playersVisited:
             self.playersVisited.append(player)
 
-    def linkTile(self, direction: Direction, tileToConnect: str):
+    def linkTile(self, direction: Direction, tileToConnect: Tile):
         if direction == Direction.N:
             self.n = tileToConnect
         elif direction == Direction.E:
