@@ -11,7 +11,8 @@ class WSClient:
         self.loop = loop
 
     async def connect(self):
-        uri = "ws://127.0.0.1:8000/ws"
+        gameID = 34543  # TEMP gameID
+        uri = f"ws://127.0.0.1:8000/ws/{gameID}"
 
         async with websockets.connect(uri) as ws:
             self.ws = ws

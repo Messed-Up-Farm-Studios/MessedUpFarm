@@ -1,4 +1,4 @@
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, status
+from fastapi import FastAPI, WebSocket, status
 
 from server.src.handlers.PlayerHandler import PlayerHandler
 from server.src.websocket.WebSocketHandler import WebSocketHandler
@@ -9,19 +9,13 @@ from shared.model.responses.RegisterResponse import RegisterResponse
 class Server:
     def __init__(self):
         self.webSocketHandler = WebSocketHandler()
-
         self.playerHandler = PlayerHandler()
 
     def register_routes(self, app: FastAPI):
-        @app.websocket("/ws")
-        async def websocket_endpoint(ws: WebSocket):
-            await ws.accept()
-            try:
-                while True:
-                    data = await ws.receive_text()
-                    await ws.send_text(f"Server received: {data}")
-            except WebSocketDisconnect:
-                print("Client disconnected")
+
+        @app.websocket("/ws/{gameID}")
+        async def websocket_endpoint(ws: WebSocket, gameID: str):
+            await self.webSocketHandler.handle(ws, gameID)
 
         @app.get("/health ")
         def health_check():
@@ -30,7 +24,7 @@ class Server:
         @app.post(
             "/register/player", status_code=status.HTTP_201_CREATED, tags=["Player", "Create"]
         )
-        def registerPlayer(registerRequest: RegisterRequest) -> RegisterResponse:
+        def register_player(registerRequest: RegisterRequest) -> RegisterResponse:
             return self.playerHandler.handle_registration(registerRequest)
 
 
