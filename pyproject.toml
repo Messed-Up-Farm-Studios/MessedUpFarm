@@ -1,5 +1,5 @@
 [tool.ruff]
-line-length = 100
+line-length = 88
 target-version = "py311"
 exclude = [
     ".git",
@@ -17,6 +17,8 @@ select = ["E", "F", "I", "B", "UP", "SIM"]
 # B = bug-risk patterns
 # UP = modern Python syntax upgrades
 # SIM = simplification/refactoring suggestions
+ignore = ["E501"] # Line too long
+
 # TODO add S and ~W to our pyproject.toml
 # Issue URL: https://github.com/Messed-Up-Farm-Studios/MessedUpFarm/issues/22
 
@@ -31,3 +33,10 @@ line-ending = "auto"
 [tool.ruff.lint.isort]
 combine-as-imports = true
 known-first-party = ["server", "shared", "client"]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+exclude = '''
+/(venv|\.venv|\.git|__pycache__|build|dist)/
+'''

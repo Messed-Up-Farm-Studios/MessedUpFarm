@@ -5,9 +5,10 @@ from shared.model.result.RegisterResult import RegisterResult
 
 
 class PlayerHandler:
-    def __init__(self):
+    def __init__(self) -> None:
         self.playerService = PlayerService()
 
-    def handle_registration(self, registerRequest: RegisterRequest):
+    def handle_registration(self, registerRequest: RegisterRequest) -> RegisterResponse:
         result: RegisterResult = self.playerService.register(registerRequest)
-        return RegisterResponse(username=result.username, authToken=result.authToken)
+        response: RegisterResponse = RegisterResponse(**result.model_dump())
+        return response

@@ -2,4 +2,8 @@ arcade==3.3.3
 fastapi
 uvicorn
 requests
+types-requests
 ruff
+black
+mypy
+websockets

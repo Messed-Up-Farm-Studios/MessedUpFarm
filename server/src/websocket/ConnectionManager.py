@@ -4,7 +4,7 @@ from fastapi import WebSocket
 
 
 class ConnectionManager:
-    def __init__(self):
+    def __init__(self) -> None:
         self.games: dict[str, set[WebSocket]] = defaultdict(set)
         self.player_game: dict[WebSocket, str] = {}
 
@@ -24,11 +24,13 @@ class ConnectionManager:
 
             del self.player_game[ws]
 
-    async def broadcast_all(self, gameID: str, message: dict):
+    async def broadcast_all(self, gameID: str, message: dict) -> None:
         for ws in self.games.get(gameID, []):
             await ws.send_json(message)
 
-    async def broadcast_to_game(self, gameID: str, message: dict, exclude: WebSocket = None):
+    async def broadcast_to_game(
+        self, gameID: str, message: dict, exclude: WebSocket | None = None
+    ) -> None:
         for ws in self.games.get(gameID, set()):
             if ws == exclude:
                 continue

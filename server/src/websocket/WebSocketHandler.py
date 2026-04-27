@@ -6,10 +6,10 @@ from server.src.websocket.ConnectionManager import ConnectionManager
 
 
 class WebSocketHandler:
-    def __init__(self):
+    def __init__(self) -> None:
         self.manager = ConnectionManager()
 
-    async def handle(self, ws: WebSocket, gameID: str):
+    async def handle(self, ws: WebSocket, gameID: str) -> None:
         await self.manager.connect(gameID, ws)
 
         try:
@@ -20,7 +20,7 @@ class WebSocketHandler:
         except WebSocketDisconnect:
             self.manager.disconnect(ws)
 
-    async def on_message(self, gameID: str, data: str, ws: WebSocket):
+    async def on_message(self, gameID: str, data: str, ws: WebSocket) -> None:
         msg = json.loads(data)
 
         if msg["type"] == "move":

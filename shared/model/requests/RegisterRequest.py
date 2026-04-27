@@ -7,7 +7,9 @@ class RegisterRequest(BaseModel):
         min_length=1,
         max_length=20,
         description="Player's Username",
-        example="pnobscot",
+        examples=["pnobscot"],
     )
-    age: int = Field(ge=13, le=100, description="Players Age", example=23)
-    password: str = Field(description="Players Password", example="admin123")
+
+    age: int = Field(..., ge=13, le=100, description="Players Age", examples=[23])
+
+    password: str = Field(..., description="Players Password", examples=["admin123"])

@@ -3,15 +3,15 @@ import uuid
 from server.src.daos.AuthDAO import AuthDAO
 from server.src.daos.PlayerDAO import PlayerDAO
 from shared.model.requests.RegisterRequest import RegisterRequest
-from shared.model.responses.RegisterResponse import RegisterResponse
+from shared.model.result.RegisterResult import RegisterResult
 
 
 class PlayerService:
-    def __init__(self):
+    def __init__(self) -> None:
         self.playerDAO: PlayerDAO = PlayerDAO()
         self.authDAO: AuthDAO = AuthDAO()
 
-    def register(self, registerRequest: RegisterRequest):
+    def register(self, registerRequest: RegisterRequest) -> RegisterResult:
         username: str = registerRequest.username
 
         self.playerDAO.register(username)
@@ -20,4 +20,4 @@ class PlayerService:
 
         self.authDAO.addAuthData(username, authToken)
 
-        return RegisterResponse(username=username, authToken=authToken)
+        return RegisterResult(username=username, authToken=authToken)

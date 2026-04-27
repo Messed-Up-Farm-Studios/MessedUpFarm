@@ -1,16 +1,17 @@
 import json
 
 import websockets
+from websockets.asyncio.client import ClientConnection
 
 from client.src.WSManager import wsManager
 
 
 class WSClient:
-    def __init__(self, loop):
-        self.ws = None
+    def __init__(self, loop) -> None:
+        self.ws: ClientConnection | None = None
         self.loop = loop
 
-    async def connect(self):
+    async def connect(self) -> None:
         gameID = 34543  # TEMP gameID
         uri = f"ws://127.0.0.1:8000/ws/{gameID}"
 
@@ -28,6 +29,6 @@ class WSClient:
 
                 wsManager.queue.put(data)
 
-    async def send(self, data: dict):
+    async def send(self, data: dict) -> None:
         if self.ws:
             await self.ws.send(json.dumps(data))

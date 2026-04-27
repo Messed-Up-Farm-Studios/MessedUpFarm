@@ -9,10 +9,10 @@ WINDOW_TITLE = "Messed Up Farm"
 
 
 class MessedUpFarmApp:
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
-    def run(self):
+    def run(self) -> None:
         """Main function"""
         # Create a window class. This is what actually shows up on screen
         window = arcade.Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE)

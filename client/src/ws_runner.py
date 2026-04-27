@@ -4,7 +4,7 @@ import threading
 from client.src.WSClient import WSClient
 
 
-def start_ws():
+def start_ws() -> None:
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
@@ -12,6 +12,6 @@ def start_ws():
     loop.run_until_complete(client.connect())
 
 
-def start_ws_thread():
+def start_ws_thread() -> None:
     thread = threading.Thread(target=start_ws, daemon=True)
     thread.start()

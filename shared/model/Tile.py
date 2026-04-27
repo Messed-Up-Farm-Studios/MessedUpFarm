@@ -1,12 +1,14 @@
+from __future__ import annotations
+
 from shared.model.Biome import Biome
 from shared.model.Direction import Direction
 from shared.model.Player import Player
 
 
 class Tile:
-    def __init__(self, biome: Biome, col: int, row: int):
+    def __init__(self, biome: Biome, col: int, row: int) -> None:
         self.biome = biome
-        self.playersVisited: list[Player] = []
+        self.playersVisited: set[Player] = set()
         self.col = col
         self.row = row
         self.n: Tile | None = None
@@ -14,11 +16,10 @@ class Tile:
         self.s: Tile | None = None
         self.w: Tile | None = None
 
-    def playerVisits(self, player: Player):
-        if Player not in self.playersVisited:
-            self.playersVisited.append(player)
+    def playerVisits(self, player: Player) -> None:
+        self.playersVisited.add(player)
 
-    def linkTile(self, direction: Direction, tileToConnect: str):
+    def linkTile(self, direction: Direction, tileToConnect: Tile) -> None:
         if direction == Direction.N:
             self.n = tileToConnect
         elif direction == Direction.E:

@@ -77,6 +77,7 @@ pick_random_no_sound() {
 }
 
 enqueue_sound() {
-    start_sound_worker
     echo "$1" > "$SOUND_QUEUE"
 }
+
+start_sound_worker
