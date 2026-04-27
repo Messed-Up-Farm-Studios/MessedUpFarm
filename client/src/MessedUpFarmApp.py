@@ -1,6 +1,7 @@
 import arcade
 
 from client.src.GameView import GameView
+from client.src.ws_runner import start_ws_thread
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -18,6 +19,8 @@ class MessedUpFarmApp:
 
         # Create and setup the GameView
         game = GameView()
+
+        start_ws_thread()
 
         cow = arcade.Sprite("client/src/assets/sprites/cow.png", 0.0625)
         cow.center_x = 30

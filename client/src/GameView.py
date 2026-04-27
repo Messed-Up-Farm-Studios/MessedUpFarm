@@ -10,6 +10,8 @@ python -m arcade.examples.starting_template
 
 import arcade
 
+from client.src.WSManager import wsManager
+
 
 class GameView(arcade.View):
     """
@@ -56,7 +58,9 @@ class GameView(arcade.View):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
-        pass
+        while not wsManager.queue.empty():
+            msg = wsManager.queue.get()
+            print(f"Game got: {msg}")
 
     def on_key_press(self, key, key_modifiers):
         """
@@ -65,7 +69,15 @@ class GameView(arcade.View):
         For a full list of keys, see:
         https://api.arcade.academy/en/latest/arcade.key.html
         """
-        pass
+        if key == arcade.key.UP:
+            player = self.characters[0]
+
+            player.center_y += 10
+
+            wsManager.send_ws({"type": "move", "x": player.center_x, "y": player.center_y})
+
+        elif key == arcade.key.DOWN:
+            self.characters[0].center_y -= 10
 
     def on_key_release(self, key, key_modifiers):
         """
