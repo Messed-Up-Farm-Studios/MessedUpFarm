@@ -1,6 +1,6 @@
-from shared.src.Biome import Biome
-from shared.src.Direction import Direction
-from shared.src.Player import Player
+from shared.model.Biome import Biome
+from shared.model.Direction import Direction
+from shared.model.Player import Player
 
 
 class Tile:

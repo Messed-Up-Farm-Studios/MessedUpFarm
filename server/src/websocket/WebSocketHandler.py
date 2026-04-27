@@ -1,3 +1,3 @@
-class Player:
+class WebSocketHandler:
     def __init__(self):
         pass

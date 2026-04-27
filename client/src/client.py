@@ -3,6 +3,8 @@ import asyncio
 import requests
 import websockets
 
+from shared.model.requests.RegisterRequest import RegisterRequest
+
 
 async def run():
     uri = "ws://127.0.0.1:8000/ws"
@@ -40,8 +42,10 @@ def send_request(method, path="/", data=None, params=None, headers=None):
     print(response.json())
 
 
-# Good Post Request
-send_request("POST", "/create/player", data={"name": "Jimmy", "age": 22})
+# Good Post Request"
+req = RegisterRequest(username="jimmy", age=22, password="admin123")
+send_request("POST", "/register/player", data=req.model_dump())
 
 # Bad Post Request
-send_request("POST", "/create/player", data={"name": 123, "age": 22})
+data = {"username": 2344, "age": 22, "password": "admin123"}
+send_request("POST", "/register/player", data=data)

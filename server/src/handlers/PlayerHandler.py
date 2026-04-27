@@ -1,15 +1,13 @@
-from server.src.daos.PlayerDAO import PlayerDAO
+from server.src.services.PlayerService import PlayerService
+from shared.model.requests.RegisterRequest import RegisterRequest
+from shared.model.responses.RegisterResponse import RegisterResponse
+from shared.model.result.RegisterResult import RegisterResult
 
 
 class PlayerHandler:
     def __init__(self):
-        self.playerDAO: PlayerDAO = PlayerDAO()
+        self.playerService = PlayerService()
 
-    def create_player(self, player):
-        #
-        self.playerDAO.add_player(player)
-        response = {"msg": "player created"}
-        return response
-
-    def list_players():
-        pass
+    def handle_registration(self, registerRequest: RegisterRequest):
+        result: RegisterResult = self.playerService.register(registerRequest)
+        return RegisterResponse(username=result.username, authToken=result.authToken)

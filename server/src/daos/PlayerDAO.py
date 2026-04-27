@@ -1,13 +1,6 @@
-players = []
-
-
 class PlayerDAO:
     def __init__(self):
-        pass
+        self.players = []
 
-    def add_player(self, player):
-        players.append(player.name)
-        return
-
-    def list_players(self):
-        return players
+    def register(self, username: str):
+        self.players.append(username)
