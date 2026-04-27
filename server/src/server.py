@@ -17,7 +17,7 @@ class Server:
         async def websocket_endpoint(ws: WebSocket, gameID: str) -> None:
             await self.webSocketHandler.handle(ws, gameID)
 
-        @app.get("/health ")
+        @app.get("/health")
         def health_check() -> dict[str, str]:
             return {"status": "ok"}
 
