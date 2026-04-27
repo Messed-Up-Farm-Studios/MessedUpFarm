@@ -40,9 +40,3 @@ def health_check():
 def create_player(player: Player, background_tasks: BackgroundTasks):
     response = playerHandler.create_player(player)
     return response
-
-
-@app.get("/list/players", tags=["Player", "List"])
-def list_players():
-    background_tasks.add_task(player, player)
-    return {"msg": "players list", "players": players}
