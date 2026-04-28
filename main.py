@@ -1,7 +1,7 @@
 from client.src.MessedUpFarmApp import MessedUpFarmApp
 
 
-def main():
+def main() -> None:
     app = MessedUpFarmApp()
     app.run()
 
