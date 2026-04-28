@@ -28,9 +28,19 @@ cd "$REPO_ROOT"
 play_sound  "$BUILD_SOUND"
 echo "Building..."
 
+BUILD_OS="$(uname -s)"
+case "$BUILD_OS" in
+    MINGW*|MSYS*|CYGWIN*)
+        ADD_DATA_SEPARATOR=";"
+        ;;
+    *)
+        ADD_DATA_SEPARATOR=":"
+        ;;
+esac
+
 pyinstaller main.py \
   --name MessedUpFarm \
   --onefile \
-  --add-data "client/src/assets;client/src/assets" \
+  --add-data "client/src/assets${ADD_DATA_SEPARATOR}client/src/assets" \
   --windowed  # DEBUG by commenting out this line
   
