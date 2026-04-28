@@ -1,0 +1,29 @@
+name: Tests
+
+on:
+    push:
+    pull_requests:
+
+permissions:
+    contents: read
+
+jobs:
+    pytest:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            
+            - name: Set Up Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.14"
+            
+            - name: Install pytest
+              run: |
+                    pip install pytest
+                    pip install -r requirements
+            
+            - name: Run Tests
+              run: pytest .
