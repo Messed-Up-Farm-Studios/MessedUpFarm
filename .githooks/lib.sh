@@ -7,6 +7,7 @@ PID_FILE="/tmp/git_sound_worker_${REPO_NAME}.pid"
 
 RUFF_SOUND="$REPO_ROOT/.githooks/sounds/ruff.wav"
 BUILD_SOUND="$REPO_ROOT/.githooks/sounds/building.wav"
+BLACK_SOUND="$REPO_ROOT/.githooks/sounds/black.wav"
 
 start_sound_worker() {
 

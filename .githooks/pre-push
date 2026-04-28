@@ -24,6 +24,7 @@ fi
 # Linter
 echo "Running Ruff ..."
 enqueue_sound  "$RUFF_SOUND"
+
 ruff check .
 
 ruff_status=$?
@@ -37,6 +38,8 @@ fi
 # Format
 
 echo "Running Formatter (black)..."
+enqueue_sound "$BLACK_SOUND"
+
 black --check .
 
 black_status=$?
