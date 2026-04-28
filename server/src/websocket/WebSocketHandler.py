@@ -18,6 +18,8 @@ class WebSocketHandler:
 
                 await self.on_message(gameID, data, ws)
         except WebSocketDisconnect:
+            pass
+        finally:
             self.manager.disconnect(ws)
 
     async def on_message(self, gameID: str, data: str, ws: WebSocket) -> None:
