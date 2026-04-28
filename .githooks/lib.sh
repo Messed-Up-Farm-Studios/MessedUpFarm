@@ -6,6 +6,8 @@ PID_FILE="/tmp/git_sound_worker_${REPO_NAME}.pid"
 
 
 RUFF_SOUND="$REPO_ROOT/.githooks/sounds/ruff.wav"
+BUILD_SOUND="$REPO_ROOT/.githooks/sounds/building.wav"
+BLACK_SOUND="$REPO_ROOT/.githooks/sounds/black.wav"
 
 start_sound_worker() {
 
@@ -77,7 +79,7 @@ pick_random_no_sound() {
 }
 
 enqueue_sound() {
-    echo "$1" > "$SOUND_QUEUE"
+    echo "$1" > "$SOUND_QUEUE" & 
 }
 
 start_sound_worker

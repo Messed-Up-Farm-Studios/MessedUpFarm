@@ -8,3 +8,4 @@ black
 mypy
 websockets
 pytest
+pyinstaller

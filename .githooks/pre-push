@@ -4,13 +4,13 @@
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$HOOK_DIR/lib.sh"
 
-echo "Running Ruff ..."
-enqueue_sound  "$RUFF_SOUND"
+
 
 cd "$REPO_ROOT"
 
 # Type
 
+echo "Running Type Check ..."
 mypy . 
 
 mypy_status=$?
@@ -22,6 +22,8 @@ if [ $mypy_status -ne 0 ]; then
 fi
 
 # Linter
+echo "Running Ruff ..."
+enqueue_sound  "$RUFF_SOUND"
 
 ruff check .
 
@@ -34,6 +36,10 @@ if [ $ruff_status -ne 0 ]; then
 fi
 
 # Format
+
+echo "Running Formatter (black)..."
+enqueue_sound "$BLACK_SOUND"
+
 black --check .
 
 black_status=$?
@@ -54,12 +60,43 @@ fi
 
 # Tests
 
+echo "Running Tests..."
 pytest .
+
 
 pytest_status=$?
 
 if [ $pytest_status -ne 0 ]; then
     echo "Tests failed"
+    enqueue_sound  "$(pick_random_failure_sound)"
+    exit 1
+fi
+
+
+# Build
+
+echo "Building..."
+enqueue_sound  "$BUILD_SOUND"
+
+case "$(uname -s)" in
+  CYGWIN*|MINGW*|MSYS*)
+    ADD_DATA_SEPARATOR=";"
+    ;;
+  *)
+    ADD_DATA_SEPARATOR=":"
+    ;;
+esac
+
+pyinstaller main.py \
+  --name MessedUpFarm \
+  --onefile \
+  --add-data "client/src/assets${ADD_DATA_SEPARATOR}client/src/assets" \
+  --windowed
+
+build_status=$?
+
+if [ "$build_status" -ne 0 ]; then
+    echo "Build failed"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
 fi

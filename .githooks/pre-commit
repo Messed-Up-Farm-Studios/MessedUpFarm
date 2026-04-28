@@ -3,10 +3,6 @@
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$HOOK_DIR/lib.sh"
 
-echo "Running Ruff ..."
-
-enqueue_sound  "$RUFF_SOUND"
-
 BEFORE=$(git diff --name-only)
 
 cd "$REPO_ROOT"
@@ -24,6 +20,8 @@ if [ $mypy_status -ne 0 ]; then
 fi
 
 # Linter
+echo "Running Ruff ..."
+enqueue_sound  "$RUFF_SOUND"
 
 ruff check . --fix
 
@@ -37,10 +35,12 @@ fi
 
 # Format
 
+echo "Running Formatter (black)..."
+enqueue_sound "$BLACK_SOUND"
+
 black .
 
 black_status=$?
-
 
 if [ $black_status -ne 0 ]; then
     echo "Commit blocked: Black failed while formatting the code"
