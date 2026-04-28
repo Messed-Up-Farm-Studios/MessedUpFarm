@@ -4,7 +4,6 @@ on:
     push:
         branches:
             - main
-            - 30-add-build-with-pyinstaller
     pull_request:
         branches:
             - main
@@ -36,8 +35,8 @@ jobs:
             - name: Create GitHub Release
               uses: softprops/action-gh-release@v2
               with: 
-                tag_name: v1.0.${{ github.run_number }}
-                name: Build v1.0.${{ github.run_number }}
+                tag_name: v0.0.${{ github.run_number }}
+                name: Build v0.0.${{ github.run_number }}
                 files: dist/MessedUpFarm.exe
             
 
