@@ -53,13 +53,14 @@ if ! git diff --quiet; then
 fi
 
 # Tests
+TEST_COVERAGE=1
 
-pytest .
+pytest --cov=. --cov-fail-under=$TEST_COVERAGE
 
 pytest_status=$?
 
 if [ $pytest_status -ne 0 ]; then
-    echo "Tests failed"
+    echo "Tests failed or Test Coverage is below $TEST_COVERAGE"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
 fi

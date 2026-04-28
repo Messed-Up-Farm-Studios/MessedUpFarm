@@ -20,10 +20,10 @@ jobs:
               with:
                 python-version: "3.14"
             
-            - name: Install pytest
+            - name: Install pytest and pytest-cov
               run: |
-                    pip install pytest
+                    pip install pytest pytest-cov
                     pip install -r requirements.txt
             
             - name: Run Tests
-              run: pytest .
+              run: pytest --cov=. --cov-fail-under=1
