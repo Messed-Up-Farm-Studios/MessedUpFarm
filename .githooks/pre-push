@@ -86,8 +86,8 @@ pyinstaller main.py \
 
 build_status=$?
 
-if [ build_status -ne 0 ]; then
-    echo "Tests failed"
+if [ "$build_status" -ne 0 ]; then
+    echo "Build failed"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
 fi
