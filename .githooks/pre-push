@@ -55,7 +55,6 @@ fi
 # Tests
 TEST_COVERAGE=1
 
-
 pytest --cov=. --cov-fail-under=$TEST_COVERAGE || {
     echo "Tests failed or coverage too low"
     enqueue_sound "$(pick_random_failure_sound)"
