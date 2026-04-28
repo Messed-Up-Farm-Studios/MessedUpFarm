@@ -33,6 +33,6 @@ def send_request(method: HTTPMethod, path="/", data=None, params=None, headers=N
     print(response.json())
 
 
-# Good Post Request"
+# Good Post Request
 req = RegisterRequest(username="jimmy", age=22, password="admin123")
 send_request(HTTPMethod.POST, "/register/player", data=req.model_dump())
