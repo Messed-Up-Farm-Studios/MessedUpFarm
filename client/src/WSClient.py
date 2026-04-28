@@ -11,6 +11,7 @@ class WSClient:
 
     async def connect(self) -> None:
         from client.src.WSManager import wsManager
+
         gameID = 34543  # TEMP gameID
         uri = f"ws://127.0.0.1:8000/ws/{gameID}"
 

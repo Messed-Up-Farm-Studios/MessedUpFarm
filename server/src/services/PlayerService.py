@@ -18,6 +18,6 @@ class PlayerService:
 
         authToken = uuid.uuid4()
 
-        self.authDAO.addAuthData(username, authToken)
+        self.authDAO.add_auth_data(username, authToken)
 
         return RegisterResult(username=username, authToken=authToken)
