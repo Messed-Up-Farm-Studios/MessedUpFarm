@@ -21,9 +21,21 @@ class WebSocketHandler:
             self.manager.disconnect(ws)
 
     async def on_message(self, gameID: str, data: str, ws: WebSocket) -> None:
-        msg = json.loads(data)
+        try:
+            msg = json.loads(data)
+        except json.JSONDecodeError:
+            await ws.close()
+            return
 
-        if msg["type"] == "move":
+        if not isinstance(msg, dict):
+            await ws.close()
+            return
+
+        msg_type = msg.get("type")
+
+        if msg_type == "move":
             pass
-        elif msg["type"] == "chat":
+        elif msg_type == "chat":
             await self.manager.broadcast_to_game(gameID, msg, ws)
+        else:
+            await ws.close()
