@@ -52,4 +52,16 @@ if ! git diff --quiet; then
     exit 1
 fi
 
+# Tests
+
+pytest .
+
+pytest_status=$?
+
+if [ $pytest_status -ne 0 ]; then
+    echo "Tests failed"
+    enqueue_sound  "$(pick_random_failure_sound)"
+    exit 1
+fi
+
 enqueue_sound  "$(pick_random_success_sound)"
