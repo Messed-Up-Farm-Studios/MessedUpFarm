@@ -78,10 +78,19 @@ fi
 echo "Building..."
 enqueue_sound  "$BUILD_SOUND"
 
+case "$(uname -s)" in
+  CYGWIN*|MINGW*|MSYS*)
+    ADD_DATA_SEPARATOR=";"
+    ;;
+  *)
+    ADD_DATA_SEPARATOR=":"
+    ;;
+esac
+
 pyinstaller main.py \
   --name MessedUpFarm \
   --onefile \
-  --add-data "client/src/assets;client/src/assets" \
+  --add-data "client/src/assets${ADD_DATA_SEPARATOR}client/src/assets" \
   --windowed
 
 build_status=$?
