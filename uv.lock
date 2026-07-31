@@ -454,6 +454,11 @@ dependencies = [
     { name = "websockets" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "mypy" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "arcade", specifier = "==3.3.3" },
@@ -468,6 +473,9 @@ requires-dist = [
     { name = "uvicorn", specifier = ">=0.52.0" },
     { name = "websockets", specifier = ">=17.0.1" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "mypy", specifier = ">=2.3.0" }]
 
 [[package]]
 name = "mypy"
