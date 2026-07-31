@@ -1,3 +1,18 @@
+[project]
+name = "messedupfarm"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+dependencies = [
+    "arcade==3.3.3",
+    "black>=26.5.1",
+    "fastapi>=0.141.1",
+    "requests>=2.34.2",
+    "types-requests>=2.33.0.20260712",
+    "uvicorn>=0.52.0",
+    "websockets>=17.0.1",
+]
+
 [tool.ruff]
 line-length = 88
 target-version = "py311"
@@ -40,3 +55,12 @@ target-version = ["py311"]
 exclude = '''
 /(venv|\.venv|\.git|__pycache__|build|dist)/
 '''
+
+[dependency-groups]
+dev = [
+    "black>=26.5.1",
+    "mypy>=2.3.0",
+    "pyinstaller>=6.21.0",
+    "pytest>=9.1.1",
+    "ruff>=0.16.1",
+]
