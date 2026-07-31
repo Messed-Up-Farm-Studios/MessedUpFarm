@@ -3,16 +3,11 @@ name = "messedupfarm"
 version = "0.1.0"
 requires-python = ">=3.12"
 
-dependecies = []
 dependencies = [
     "arcade==3.3.3",
     "black>=26.5.1",
     "fastapi>=0.141.1",
-    "mypy>=2.3.0",
-    "pyinstaller>=6.21.0",
-    "pytest>=9.1.1",
     "requests>=2.34.2",
-    "ruff>=0.16.1",
     "types-requests>=2.33.0.20260712",
     "uvicorn>=0.52.0",
     "websockets>=17.0.1",
@@ -63,5 +58,8 @@ exclude = '''
 
 [dependency-groups]
 dev = [
+    "black>=26.5.1",
     "mypy>=2.3.0",
+    "pyinstaller>=6.21.0",
+    "ruff>=0.16.1",
 ]

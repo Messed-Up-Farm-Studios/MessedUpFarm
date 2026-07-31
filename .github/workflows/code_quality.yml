@@ -27,14 +27,11 @@ jobs:
           uv sync --dev
         
       - name: mypy
-        run: mypy . 
+        run: uv run mypy . 
 
       - name: Lint
-        run: ruff check .
-
-      - name: Install Black
-        run: pip install black
+        run: uv run ruff check .
 
       - name: Format
-        run: black --check .
+        run: uv run black --check .
     
