@@ -444,14 +444,19 @@ dependencies = [
     { name = "arcade" },
     { name = "black" },
     { name = "fastapi" },
-    { name = "mypy" },
-    { name = "pyinstaller" },
-    { name = "pytest" },
     { name = "requests" },
-    { name = "ruff" },
     { name = "types-requests" },
     { name = "uvicorn" },
     { name = "websockets" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "black" },
+    { name = "mypy" },
+    { name = "pyinstaller" },
+    { name = "pytest" },
+    { name = "ruff" },
 ]
 
 [package.metadata]
@@ -459,14 +464,19 @@ requires-dist = [
     { name = "arcade", specifier = "==3.3.3" },
     { name = "black", specifier = ">=26.5.1" },
     { name = "fastapi", specifier = ">=0.141.1" },
-    { name = "mypy", specifier = ">=2.3.0" },
-    { name = "pyinstaller", specifier = ">=6.21.0" },
-    { name = "pytest", specifier = ">=9.1.1" },
     { name = "requests", specifier = ">=2.34.2" },
-    { name = "ruff", specifier = ">=0.16.1" },
     { name = "types-requests", specifier = ">=2.33.0.20260712" },
     { name = "uvicorn", specifier = ">=0.52.0" },
     { name = "websockets", specifier = ">=17.0.1" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "black", specifier = ">=26.5.1" },
+    { name = "mypy", specifier = ">=2.3.0" },
+    { name = "pyinstaller", specifier = ">=6.21.0" },
+    { name = "pytest", specifier = ">=9.1.1" },
+    { name = "ruff", specifier = ">=0.16.1" },
 ]
 
 [[package]]
