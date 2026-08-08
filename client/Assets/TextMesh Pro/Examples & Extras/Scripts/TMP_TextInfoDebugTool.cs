@@ -11,6 +11,7 @@ namespace TMPro.Examples
     {
         // Since this script is used for debugging, we exclude it from builds.
         // TODO: Rework this script to make it into an editor utility.
+        // Issue URL: https://github.com/Messed-Up-Farm-Studios/MessedUpFarm/issues/35
         #if UNITY_EDITOR
         public bool ShowCharacters;
         public bool ShowWords;
