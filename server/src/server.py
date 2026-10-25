@@ -5,7 +5,6 @@ from server.src.websocket.WebSocketHandler import WebSocketHandler
 from shared.model.requests.RegisterRequest import RegisterRequest
 from shared.model.responses.RegisterResponse import RegisterResponse
 
-
 class Server:
     def __init__(self) -> None:
         self.webSocketHandler = WebSocketHandler()
