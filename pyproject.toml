@@ -25,17 +25,8 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "B", "UP", "SIM"]
-# E = PEP8/style issues
-# F = pyflakes bugs (unused/undefined code)
-# I = import sorting
-# B = bug-risk patterns
-# UP = modern Python syntax upgrades
-# SIM = simplification/refactoring suggestions
+select = ["E", "F", "I", "B", "UP", "SIM", "S", "ASYNC", "PT", "RUF", "C4"]
 ignore = ["E501"] # Line too long
-
-# TODO add S and ~W to our pyproject.toml
-# Issue URL: https://github.com/Messed-Up-Farm-Studios/MessedUpFarm/issues/22
 
 [tool.ruff.format]
 quote-style = "double"
@@ -43,7 +34,7 @@ indent-style = "space"
 line-ending = "auto"
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101"] # Allow assert in tests
+"**/tests/*" = ["S101"] # Allow assert in tests
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
@@ -64,3 +55,9 @@ dev = [
     "pytest>=9.1.1",
     "ruff>=0.16.1",
 ]
+
+
+[tool.pytest.ini_options]
+testpaths = ["server/tests"]
+pythonpath = ["."]
+addopts = ["--import-mode=importlib"]

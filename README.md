@@ -34,6 +34,12 @@ So our flow is going to be the following:
 
 Server --> Handler --> Service --> DB
 
+##### Tests
+
+We are actually going to do it this time! Postive and Negative tests please and cover edge cases. If you're a boss you'll write your tests first.
+
+We will be using pytest. Make sure the test folder mimics src in folder layout and file layout just with 'test\_' infront.
+
 ### Client
 
 #### TECH STACK
@@ -41,4 +47,23 @@ Server --> Handler --> Service --> DB
 - C#
 - Unity
 
-:
+Unity deals with scenes and objects.
+
+Bootstrap --> SplashScreen --> LoadingScreen --> MainMenu
+
+Awake() at the start
+INitalize - right after start
+
+Scripts:
+
+- GameState
+
+- GameManager
+
+##### GameState
+
+- Gamestate is an enum. Holds what states the game can be in.
+
+##### GameManager
+
+- GameManager tracks game state and coordinates game play

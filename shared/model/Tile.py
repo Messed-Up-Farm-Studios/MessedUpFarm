@@ -4,6 +4,7 @@ from shared.model.Biome import Biome
 from shared.model.Direction import Direction
 from shared.model.Player import Player
 
+
 class Tile:
     def __init__(self, biome: Biome, col: int, row: int) -> None:
         self.biome = biome

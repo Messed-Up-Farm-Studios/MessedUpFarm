@@ -24,7 +24,11 @@ public class GameManager : MonoBehaviour
 
     public void SetState(GameState newState)
     {
-        if (CurrentState == newState) return;
+
+        if (CurrentState == newState) {
+            Debug.Log("Uhh, the newState already is implemented my guy.");
+            return;
+        };
         
         Debug.Log($"State change: {CurrentState} -> {newState}");
 
