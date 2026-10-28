@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Play a hook sound by name, e.g. `sh .githooks/play ruff`
+HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$HOOK_DIR/lib.sh"
+
+case "$1" in
+    ruff)    enqueue_sound "$RUFF_SOUND" ;;
+    black)   enqueue_sound "$BLACK_SOUND" ;;
+    build)   enqueue_sound "$BUILD_SOUND" ;;
+    success) enqueue_sound "$(pick_random_success_sound)" ;;
+    fail)    enqueue_sound "$(pick_random_failure_sound)" ;;
+    no)      enqueue_sound "$(pick_random_no_sound)" ;;
+    *)       echo "Unknown sound: $1" >&2; exit 1 ;;
+esac

@@ -5,11 +5,12 @@ HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 BEFORE=$(git diff --name-only)
 
-cd "$REPO_ROOT"
+cd "$SERVER_DIR" || exit 1
 
 # Type
 
-mypy .
+echo "Running Type Check ..."
+uv run mypy $SRC
 
 mypy_status=$?
 
@@ -23,7 +24,7 @@ fi
 echo "Running Ruff ..."
 enqueue_sound  "$RUFF_SOUND"
 
-ruff check . --fix
+uv run ruff check --fix $SRC
 
 ruff_status=$?
 
@@ -38,7 +39,7 @@ fi
 echo "Running Formatter (black)..."
 enqueue_sound "$BLACK_SOUND"
 
-black .
+uv run black $SRC
 
 black_status=$?
 
@@ -58,4 +59,4 @@ if [ "$BEFORE" != "$AFTER" ]; then
     exit 1
 fi
 
-enqueue_sound  "$REPO_ROOT/.githooks/sounds/success/charm.wav"
+enqueue_sound  "$SOUNDS/success/charm.wav"

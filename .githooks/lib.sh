@@ -1,85 +1,71 @@
 REPO_ROOT="$(git rev-parse --show-toplevel)"
-REPO_NAME="$(basename "$REPO_ROOT")"
+SERVER_DIR="$REPO_ROOT/server"
+SRC="src/server src/model"
 
-SOUND_QUEUE="/tmp/git_sound_queue_${REPO_NAME}"
-PID_FILE="/tmp/git_sound_worker_${REPO_NAME}.pid"
+SOUNDS="$REPO_ROOT/.githooks/sounds"
+RUFF_SOUND="$SOUNDS/ruff.wav"
+BUILD_SOUND="$SOUNDS/building.wav"
+BLACK_SOUND="$SOUNDS/black.wav"
 
+# PID of the last queued sound, so the next one waits its turn
+LAST_SOUND_PID=""
 
-RUFF_SOUND="$REPO_ROOT/.githooks/sounds/ruff.wav"
-BUILD_SOUND="$REPO_ROOT/.githooks/sounds/building.wav"
-BLACK_SOUND="$REPO_ROOT/.githooks/sounds/black.wav"
-
-start_sound_worker() {
-
-    if [ -f "$PID_FILE" ]; then
-        PID="$(cat "$PID_FILE")"
-
-        if kill -0 "$PID" 2>/dev/null; then
-            return
-        else
-            rm -f "$PID_FILE"
-        fi
-    fi
-
-    # Create fifo if missing
-    if [ ! -p "$SOUND_QUEUE" ]; then
-        mkfifo "$SOUND_QUEUE"
-    fi
-
-    # Start Worker
-    (
-        while read -r sound < "$SOUND_QUEUE"; do
-            [ -f "$sound" ] && play_sound "$sound"
-            done
-    ) &
-
-    echo $! > "$PID_FILE"
-}
+# Let queued sounds finish before the hook exits, otherwise the last one is cut off
+trap 'wait' EXIT
 
 play_sound() {
     SOUND="$1"
 
-    OS="$(uname -s)"
-
-    case "$OS" in 
+    case "$(uname -s)" in
         Darwin)
-        afplay "$SOUND" 
+        afplay "$SOUND"
         ;;
         Linux)
-        aplay "$SOUND"
+        aplay -q "$SOUND"
         ;;
         MINGW*|MSYS*|CYGWIN*)
-        powershell -c "(New-Object Media.SoundPlayer \"$SOUND\").PlaySync();"
+        powershell -NoProfile -c "(New-Object Media.SoundPlayer '$(cygpath -w "$SOUND")').PlaySync();"
         ;;
         *)
-        echo "No sound support for OS: $OS"
+        echo "No sound support for OS: $(uname -s)"
         ;;
     esac
 }
 
+# Play sounds in the background, one after another
+enqueue_sound() {
+    sound="$1"
+    prev="$LAST_SOUND_PID"
+
+    if [ ! -f "$sound" ]; then
+        echo "Missing sound: $sound" >&2
+        return
+    fi
+
+    (
+        if [ -n "$prev" ]; then
+            while kill -0 "$prev" 2>/dev/null; do sleep 0.1; done
+        fi
+        play_sound "$sound"
+    ) >/dev/null 2>&1 &
+
+    LAST_SOUND_PID=$!
+}
+
+# Print one random file from the arguments (pass a glob)
+pick_random() {
+    i=$(awk -v n=$# 'BEGIN { srand(); print int(rand() * n) + 1 }')
+    eval echo "\"\${$i}\""
+}
+
 pick_random_success_sound() {
-    rand=$((RANDOM % 2 + 1))
-    success_sound="success$rand.wav"
-    success_path="$REPO_ROOT/.githooks/sounds/success/$success_sound"
-    echo "$success_path"
+    pick_random "$SOUNDS"/success/*.wav
 }
 
 pick_random_failure_sound() {
-    rand=$((RANDOM % 2 + 1))
-    fail_sound="fail$rand.wav"
-    fail_path="$REPO_ROOT/.githooks/sounds/fail/$fail_sound"
-    echo "$fail_path"
+    pick_random "$SOUNDS"/fail/fail*.wav
 }
 
 pick_random_no_sound() {
-    rand=$((RANDOM % 2 + 1))
-    fail_sound="no$rand.wav"
-    fail_path="$REPO_ROOT/.githooks/sounds/fail/$fail_sound"
-    echo "$fail_path"
+    pick_random "$SOUNDS"/fail/no*.wav
 }
-
-enqueue_sound() {
-    echo "$1" > "$SOUND_QUEUE" & 
-}
-
-start_sound_worker
