@@ -57,7 +57,10 @@ uv run pytest
 
 pytest_status=$?
 
-if [ $pytest_status -ne 0 ]; then
+# Exit code 5 means no tests were collected, which is not a failure
+if [ $pytest_status -eq 5 ]; then
+    echo "No tests collected, skipping"
+elif [ $pytest_status -ne 0 ]; then
     echo "Push blocked: Tests failed"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
