@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = [
     "arcade==3.3.3",
     "black>=26.5.1",
-    "fastapi>=0.141.1",
+    "fastapi>=0.162.0",
     "requests>=2.34.2",
     "types-requests>=2.33.0.20260712",
     "uvicorn>=0.52.1",
