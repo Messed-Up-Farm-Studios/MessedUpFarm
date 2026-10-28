@@ -1,14 +1,19 @@
 import uuid
 from collections.abc import Callable
 
+from model.requests.RegisterRequest import RegisterRequest
+from model.result.RegisterResult import RegisterResult
 from server.daos.AuthDAO import AuthDAO
 from server.daos.PlayerDAO import PlayerDAO
-from shared.model.requests.RegisterRequest import RegisterRequest
-from shared.model.result.RegisterResult import RegisterResult
 
 
 class PlayerService:
-    def __init__(self, playerDAO: PlayerDAO, authDAO: AuthDAO, authGenerator: Callable[[], uuid.UUID]) -> None:
+    def __init__(
+        self,
+        playerDAO: PlayerDAO,
+        authDAO: AuthDAO,
+        authGenerator: Callable[[], uuid.UUID],
+    ) -> None:
         self.playerDAO = playerDAO
         self.authDAO = authDAO
         self.authGenerator = authGenerator

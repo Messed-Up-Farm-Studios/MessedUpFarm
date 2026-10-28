@@ -1,14 +1,15 @@
-
 from fastapi import FastAPI, WebSocket, status
 
+from model.requests.RegisterRequest import RegisterRequest
+from model.responses.RegisterResponse import RegisterResponse
 from server.handlers.PlayerHandler import PlayerHandler
 from server.websocket.WebSocketHandler import WebSocketHandler
-from shared.model.requests.RegisterRequest import RegisterRequest
-from shared.model.responses.RegisterResponse import RegisterResponse
 
 
 class Server:
-    def __init__(self, webSocketHandler:WebSocketHandler, playerHandler:PlayerHandler) -> None:
+    def __init__(
+        self, webSocketHandler: WebSocketHandler, playerHandler: PlayerHandler
+    ) -> None:
         self.webSocketHandler = webSocketHandler
         self.playerHandler = playerHandler
 
@@ -29,4 +30,3 @@ class Server:
         )
         def register_player(registerRequest: RegisterRequest) -> RegisterResponse:
             return self.playerHandler.handle_registration(registerRequest)
-

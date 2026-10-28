@@ -1,0 +1,30 @@
+from __future__ import annotations
+
+from model.Biome import Biome
+from model.Direction import Direction
+from model.Player import Player
+
+
+class Tile:
+    def __init__(self, biome: Biome, col: int, row: int) -> None:
+        self.biome = biome
+        self.playersVisited: set[Player] = set()
+        self.col = col
+        self.row = row
+        self.n: Tile | None = None
+        self.e: Tile | None = None
+        self.s: Tile | None = None
+        self.w: Tile | None = None
+
+    def playerVisits(self, player: Player) -> None:
+        self.playersVisited.add(player)
+
+    def linkTile(self, direction: Direction, tileToConnect: Tile) -> None:
+        if direction == Direction.N:
+            self.n = tileToConnect
+        elif direction == Direction.E:
+            self.e = tileToConnect
+        elif direction == Direction.S:
+            self.s = tileToConnect
+        elif direction == Direction.W:
+            self.w = tileToConnect

@@ -6,7 +6,7 @@ from server.websocket.ConnectionManager import ConnectionManager
 
 
 class WebSocketHandler:
-    def __init__(self, connectionManager:ConnectionManager) -> None:
+    def __init__(self, connectionManager: ConnectionManager) -> None:
         self.manager = connectionManager
 
     async def handle(self, ws: WebSocket, gameID: str) -> None:

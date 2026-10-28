@@ -4,14 +4,12 @@
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$HOOK_DIR/lib.sh"
 
-
-
-cd "$REPO_ROOT"
+cd "$SERVER_DIR" || exit 1
 
 # Type
 
 echo "Running Type Check ..."
-mypy . 
+uv run mypy $SRC
 
 mypy_status=$?
 
@@ -25,7 +23,7 @@ fi
 echo "Running Ruff ..."
 enqueue_sound  "$RUFF_SOUND"
 
-ruff check .
+uv run ruff check $SRC
 
 ruff_status=$?
 
@@ -40,20 +38,12 @@ fi
 echo "Running Formatter (black)..."
 enqueue_sound "$BLACK_SOUND"
 
-black --check .
+uv run black --check $SRC
 
 black_status=$?
 
 if [ $black_status -ne 0 ]; then
-    echo "Push blocked: Black failed to format the code"
-    enqueue_sound  "$(pick_random_failure_sound)"
-    exit 1
-fi
-
-# Double Check
-
-if ! git diff --quiet; then
-    echo "Push blocked: formatting issues detected"
+    echo "Push blocked: Black found unformatted code"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
 fi
@@ -61,42 +51,14 @@ fi
 # Tests
 
 echo "Running Tests..."
-pytest .
+enqueue_sound  "$BUILD_SOUND"
 
+uv run pytest
 
 pytest_status=$?
 
 if [ $pytest_status -ne 0 ]; then
-    echo "Tests failed"
-    enqueue_sound  "$(pick_random_failure_sound)"
-    exit 1
-fi
-
-
-# Build
-
-echo "Building..."
-enqueue_sound  "$BUILD_SOUND"
-
-case "$(uname -s)" in
-  CYGWIN*|MINGW*|MSYS*)
-    ADD_DATA_SEPARATOR=";"
-    ;;
-  *)
-    ADD_DATA_SEPARATOR=":"
-    ;;
-esac
-
-pyinstaller main.py \
-  --name MessedUpFarm \
-  --onefile \
-  --add-data "client/src/assets${ADD_DATA_SEPARATOR}client/src/assets" \
-  --windowed
-
-build_status=$?
-
-if [ "$build_status" -ne 0 ]; then
-    echo "Build failed"
+    echo "Push blocked: Tests failed"
     enqueue_sound  "$(pick_random_failure_sound)"
     exit 1
 fi

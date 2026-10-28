@@ -15,7 +15,8 @@ def create_server() -> Server:
     playerDAO = PlayerDAO()
     authDAO = AuthDAO()
 
-    authGenerator = lambda: uuid.uuid4()
+    def authGenerator():
+        return uuid.uuid4()
 
     playerService = PlayerService(playerDAO, authDAO, authGenerator)
     playerHandler = PlayerHandler(playerService)
@@ -25,10 +26,12 @@ def create_server() -> Server:
 
     return Server(webSocketHandler, playerHandler)
 
-def create_app(server:Server) -> FastAPI:
+
+def create_app(server: Server) -> FastAPI:
     app = FastAPI()
     server.register_routes(app)
     return app
+
 
 server = create_server()
 app = create_app(server)

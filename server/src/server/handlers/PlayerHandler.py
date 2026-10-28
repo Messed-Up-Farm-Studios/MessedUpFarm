@@ -1,7 +1,7 @@
+from model.requests.RegisterRequest import RegisterRequest
+from model.responses.RegisterResponse import RegisterResponse
+from model.result.RegisterResult import RegisterResult
 from server.services.PlayerService import PlayerService
-from shared.model.requests.RegisterRequest import RegisterRequest
-from shared.model.responses.RegisterResponse import RegisterResponse
-from shared.model.result.RegisterResult import RegisterResult
 
 
 class PlayerHandler:
