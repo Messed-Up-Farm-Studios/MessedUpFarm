@@ -46,6 +46,23 @@ class Board:
             self.make_biome(dir, biome)
 
         self.install_fountain()
+        self.add_walls()
+
+
+    def add_walls(self):
+        # north
+        for x in range(self.width):
+            self.set(x, 0, Biome.W)
+        # east
+        for y in range(self.height):
+            self.set(self.width - 1, y, Biome.W)
+        # south
+        for x in range(self.width):
+            self.set(x, self.height-1, Biome.W)
+        # west
+        for y in range(self.height):
+            self.set(0, y, Biome.W)
+        
 
     def install_fountain(self):
         fpx, fpy = self.fountain_point

@@ -8,6 +8,7 @@ class Biome(Enum):
     S = "Swamp" 
     F = "Fountain"
     C = "Center"
+    W = "Wall"
 
 
 
